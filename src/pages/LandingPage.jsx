@@ -29,7 +29,7 @@ function LandingPage() {
           <Button variant="blue" size="xl">Find Jobs</Button>
         </Link>
 
-        <Link to="/postjob">
+        <Link to="/postjobs">
           <Button variant="destructive" size="xl">Post a Job</Button>
         </Link>
       </div>
