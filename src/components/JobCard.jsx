@@ -5,20 +5,21 @@ import { Heart, MapPinIcon, Trash } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import useFetch from '@/hooks/useFetch';
-import { saveJob } from '@/api/saveJobAPI';
+import { saveJob } from '@/api/jobsAPI';
+
 
 function JobCard({
     job,
     isMyJob = false,
-    isSaved = false,
-    onJobSaved = () => { },
+    isSaved = false
 }) {
     const { user } = useUser();
     const [saved, setSaved] = useState(isSaved)
-    console.log(saved, job.id)
+
+
     const {
         fn: fnSavedJob,
-        data: savedJob,
+        data: savedJobData,
         loading: loadingSavedJob,
     } = useFetch(saveJob, {                     // this is saveJob is call inside the useFetch hook , interacts with supabase backend and returns data
         alreadySaved: saved,
@@ -32,12 +33,13 @@ function JobCard({
     }
 
     useEffect(() => {
-        if (savedJob !== undefined) {
-            setSaved(savedJob?.length > 0)
+        if (savedJobData !== undefined) {
+            setSaved(savedJobData?.length > 0)
         }
-    }, [savedJob])
+    }, [savedJobData])
+
     return (
-        <Card>
+        <Card className='flex flex-col'>
             <CardHeader>
                 <CardTitle className='flex justify-between font-bold'>
                     {job?.title}
