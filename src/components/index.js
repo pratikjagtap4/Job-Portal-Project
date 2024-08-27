@@ -2,6 +2,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import JobCard from "./JobCard";
 import ProtectedRoute from "./ProtectedRoute";
+import ApplyJobDrawer from "./ApplyJobDrawer";
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -58,6 +59,7 @@ export {
   Footer,
   ProtectedRoute,
   JobCard,
+  ApplyJobDrawer,
   Button,
   Input,
   Accordion,
