@@ -19,7 +19,7 @@ export async function getJobs(token, { location, company_id, searchQuery }) {
 
   if (searchQuery) {
     return data.filter((company) =>
-      company.title.toLowerCase().includes(searchQuery)
+      company.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
 
@@ -80,5 +80,20 @@ export async function getSingleJob(token, { job_id }) {
     console.log("Error fetching job", error);
     return null;
   }
+  return data;
+}
+
+
+export async function updateHiringStatus(token, { job_id }, isOpen) {
+  
+  const supabase = await supabaseClient(token);
+
+  const { data, error } = await supabase.from("jobs").update({ isOpen }).eq("id", job_id).select();
+
+  if (error) {
+    console.log("Error updating job", error)
+    return null;
+  }
+
   return data;
 }
