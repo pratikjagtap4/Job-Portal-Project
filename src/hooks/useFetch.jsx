@@ -30,7 +30,6 @@ function useFetch(callbackfn, options = {}) {               //
         finally {
             setLoading(false);
         }
-
     }
     return { fn, data, error, loading }
 }
