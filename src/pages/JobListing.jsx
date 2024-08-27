@@ -54,6 +54,7 @@ function JobListing() {
 
   function clearFilters() {
     inputRef.current.value = ""
+    setSearchQuery(inputRef.current.value)
     setLocation("")
     setCompany_id("")
   }
