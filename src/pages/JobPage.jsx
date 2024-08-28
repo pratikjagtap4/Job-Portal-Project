@@ -1,9 +1,8 @@
 import { getSingleJob, updateHiringStatus } from '@/api/jobsAPI'
-import { ApplyJobDrawer, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components'
+import { ApplicationCard, ApplyJobDrawer, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components'
 import useFetch from '@/hooks/useFetch'
 import { useUser } from '@clerk/clerk-react'
-import MDEditor from '@uiw/react-md-editor'
-import { BriefcaseBusiness, DoorClosed, DoorOpen, MapPin } from 'lucide-react'
+import { BriefcaseBusiness, DoorClosed, DoorOpen, IndianRupee, MapPin } from 'lucide-react'
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { BarLoader } from 'react-spinners'
@@ -13,7 +12,6 @@ function JobPage() {
   const { id } = useParams()
 
   const { fn: fnJob, data: jobData, loading: loadingJob } = useFetch(getSingleJob, { job_id: id });
-
   useEffect(() => {
     if (isLoaded) fnJob();
   }, [isLoaded])
@@ -25,6 +23,7 @@ function JobPage() {
 
     fnUpdateStatus(isOpen).then(() => fnJob())
   }
+  const applicationStatus = jobData?.applications?.find((ap) => ap.candidate_id == user.id)?.status
 
   if (!isLoaded || loadingJob) {
     return <BarLoader className='mb-4' width={"100%"} color='#36d7b7' />
@@ -57,29 +56,37 @@ function JobPage() {
 
         {loadingHiringStatus && <BarLoader width={"100%"} color='#36d7b7' />}
         {
-          jobData?.recruiter_id === user?.id && <div>
-            <Select onValueChange={(value) => handleUpdateStatus(value)} className='px-10'>
-              <SelectTrigger className={` bg-transparent ${jobData?.isOpen ? ("text-green-400") : ("text-red-500")}`}>
-                <SelectValue placeholder={"hiring status : " + (jobData?.isOpen ? " open    " : " closed  ")} />
-              </SelectTrigger>
-              <SelectContent >
-                <SelectItem value="open" >
-                  open
-                </SelectItem>
-                <SelectItem value="closed">
-                  closed
-                </SelectItem>
-              </SelectContent>
-            </Select>
+          jobData?.recruiter_id === user?.id ? (
+            <div>
+              <Select onValueChange={(value) => handleUpdateStatus(value)} className='px-10'>
+                <SelectTrigger className={` bg-transparent ${jobData?.isOpen ? ("text-green-400") : ("text-red-500")}`}>
+                  <SelectValue placeholder={"hiring status : " + (jobData?.isOpen ? " open    " : " closed  ")} />
+                </SelectTrigger>
+                <SelectContent >
+                  <SelectItem value="open" >
+                    open
+                  </SelectItem>
+                  <SelectItem value="closed">
+                    closed
+                  </SelectItem>
+                </SelectContent>
+              </Select>
 
-          </div>
+            </div>
+          ) : (applicationStatus &&
+            <span className="w-52 capitalize flex justify-center items-center gap-2">
+              Application Status : <p className={`${applicationStatus === "hired" ? ("text-green-400") : ("")} ${applicationStatus === "rejected" ? ("text-red-400") : ("")} `}>{applicationStatus}</p>
+            </span>
+          )
         }
 
       </div>
 
       {/* descriptions */}
-      <h2 className='text-2xl sm:text-3xl font-bold mt-10'>About the Job</h2>
+      <h2 className='text-2xl sm:text-3xl font-bold mt-10 mb-3'>About the Job</h2>
       <p className='sm:text-lg'>{jobData?.description} </p>
+      <h4 className='text-2xl sm:text-3xl font-bold mt-7 mb-3'>Package and Variable pay</h4>
+      <p className='sm:text-lg flex items-center'> Salary :  <IndianRupee size={17} /> {jobData?.package} /- & variable pay based on performance</p>
 
       {/* requirements */}
       <h2 className='text-2xl sm:text-3xl font-bold mt-10'>What are looking for</h2>
@@ -95,6 +102,17 @@ function JobPage() {
       {jobData?.recruiter_id !== user.id && (
         <ApplyJobDrawer jobData={jobData} user={user} fetchJob={fnJob} applied={jobData?.applications?.find((ap) => ap.candidate_id === user.id)} />
       )}
+
+      {
+        jobData?.applications?.length > 0 && jobData.recruiter_id == user.id && (
+          <div className='flex flex-col gap-2'>
+            <h2 className='text-2xl sm:text-3xl font-bold mt-10'>Applications</h2>
+            {jobData?.applications?.map((application) => {
+              return <ApplicationCard key={application.id} application={application} />
+            })}
+          </div>
+        )
+      }
     </div>
   )
 }
