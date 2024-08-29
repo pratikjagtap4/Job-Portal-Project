@@ -25,13 +25,12 @@ function ApplyJobDrawer({ jobData, user, fetchJob, applied = false }) {
     const { fn: fnApply, loading: loadingApply, error: errorApply } = useFetch(applyToJob)
 
     function onApply(data) {
-        console.log("submit iscalled");
-
         fnApply({
             ...data,
             job_id: jobData.id,
             candidate_id: user.id,
-            name: user.fullName,
+            firstName: user.firstName,
+            lastName: user.lastName,
             status: "applied",
             resume: data.resume[0]
         }).then(() => {
@@ -46,7 +45,7 @@ function ApplyJobDrawer({ jobData, user, fetchJob, applied = false }) {
                     <Button
                         size="lg"
                         variant={jobData?.isOpen && !applied ? "blue" : "destructive"}
-                        disable={jobData?.isOpen || applied}
+                        disable={jobData?.isOpen || applied ? true.toString() : undefined}
                         className='w-full'
                     >
                         {jobData?.isOpen ? (applied ? "Already Applied" : "Apply Now") : ("Stop hiring")}
@@ -92,8 +91,8 @@ function ApplyJobDrawer({ jobData, user, fetchJob, applied = false }) {
                             control={control}
                             render={({ field }) => {
                                 return <Select
+                                    value={field.value}
                                     onValueChange={field.onChange}
-                                    {...field}
                                 >
                                     <SelectTrigger className="">
                                         <SelectValue placeholder="Education" />
@@ -120,7 +119,7 @@ function ApplyJobDrawer({ jobData, user, fetchJob, applied = false }) {
                             name="passout_year"
                             control={control}
                             render={({ field }) => {
-                                return <Select onValueChange={field.onChange}  {...field}>
+                                return <Select onValueChange={field.onChange} value={field.value}>
                                     <SelectTrigger className="">
                                         <SelectValue placeholder="Passout Year" />
                                     </SelectTrigger>
@@ -160,7 +159,7 @@ function ApplyJobDrawer({ jobData, user, fetchJob, applied = false }) {
                     </form>
                     <DrawerFooter>
 
-                        <DrawerClose>
+                        <DrawerClose asChild>
                             <Button variant="outline">Cancel</Button>
                         </DrawerClose>
                     </DrawerFooter>

@@ -26,7 +26,7 @@ function ApplicationCard({ application, isCandidate = false }) {
 
     return (
         <div >
-            <Card className='bg-transparent mt-5'>
+            <Card className=' mt-5'>
                 <CardHeader>
                     <CardTitle className='flex justify-between items-center'>
                         <div>
@@ -52,7 +52,7 @@ function ApplicationCard({ application, isCandidate = false }) {
 
                         <div className='flex gap-3'>
                             <School />
-                            Education :{application?.education}.
+                            Education : {application?.education}.
                         </div>
                         <div className='flex gap-2 items-center'>
                             <Boxes />
@@ -60,7 +60,8 @@ function ApplicationCard({ application, isCandidate = false }) {
                         </div>
                     </div>
                 </CardContent>
-                <CardFooter className='flex justify-between'>
+                <hr />
+                <CardFooter className='flex justify-between mt-2'>
                     <span> Applied on :  {new Date(application?.created_at).toLocaleDateString()}</span>
                     {!isCandidate && (
                         <Select onValueChange={handleStatusChange} defaultValue={application?.status}>

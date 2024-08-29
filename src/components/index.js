@@ -3,6 +3,9 @@ import Header from "./Header";
 import JobCard from "./JobCard";
 import ProtectedRoute from "./ProtectedRoute";
 import ApplyJobDrawer from "./ApplyJobDrawer";
+import ApplicationCard from "./ApplicationCard";
+import MyApplications from "./MyApplications";
+import CreatedJobs from "./CreatedJobs";
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -41,6 +44,7 @@ import {
   DrawerDescription,
 } from "./ui/drawer";
 import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import {
   Select,
@@ -60,8 +64,12 @@ export {
   ProtectedRoute,
   JobCard,
   ApplyJobDrawer,
+  ApplicationCard,
+  MyApplications,
+  CreatedJobs,
   Button,
   Input,
+  Textarea,
   Accordion,
   AccordionItem,
   AccordionTrigger,
