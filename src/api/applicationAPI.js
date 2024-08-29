@@ -2,8 +2,6 @@ import config from "@/conf/config";
 import supabaseClient from "@/utils/supabase";
 
 export async function applyToJob(token, _, jobData) {
-  console.log("applyjob called");
-
   const supabase = await supabaseClient(token);
 
   const fileName = `resume-${jobData.candidate_id}-${jobData.firstName}-${jobData.lastName}`;
@@ -14,7 +12,7 @@ export async function applyToJob(token, _, jobData) {
     });
 
     if (error) {
-      console.error("Error fetching files:", error);
+      console.error("Error uploading resume:", error);
       return false;
     }
 
@@ -62,6 +60,23 @@ export async function updateApplicationsStatus(
 
   if (error || data.length === 0) {
     console.log("Error updating Applications status", error);
+    return null;
+  }
+  console.log(data);
+
+  return data;
+}
+
+export async function getApplications(token, { user_id }) {
+  const supabase = await supabaseClient(token);
+
+  const { data, error } = await supabase
+    .from("application")
+    .select("* , job: jobs(title , company : companies (name))")
+    .eq("candidate_id", user_id);
+
+  if (error || data.length === 0) {
+    console.log("Error fetching Applications ", error);
     return null;
   }
   console.log(data);
