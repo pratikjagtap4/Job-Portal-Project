@@ -16,6 +16,7 @@ function JobListing() {
   const [company_id, setCompany_id] = useState("")
   const { isLoaded } = useUser()
   const inputRef = useRef(null)
+  const { user } = useUser()
 
 
   // get all jobs
@@ -49,9 +50,6 @@ function JobListing() {
     if (query) setSearchQuery(query)
   }
 
-
-
-
   function clearFilters() {
     inputRef.current.value = ""
     setSearchQuery(inputRef.current.value)
@@ -80,10 +78,10 @@ function JobListing() {
         <Button type='submit' variant='blue' className='h-full sm:w-28'>Search</Button>
       </form>
 
-      <div className='flex flex-col sm:flex-row gap-2'>
+      <div className='flex flex-col sm:flex-row gap-4 items-center'>
         <Select value={location} onValueChange={(value) => setLocation(value)}>
           <SelectTrigger className="">
-            <SelectValue placeholder="Select a state" />
+            <SelectValue placeholder="Select a city" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -130,7 +128,7 @@ function JobListing() {
           {
             jobData?.length ? (
               jobData.map((job) => {
-                return <JobCard key={job.id} job={job} isSaved={job?.saved.length > 0} />
+                return <JobCard key={job.id} job={job} isSaved={job?.saved.length > 0} isMyJob={job.recruiter_id == user.id} onJobAction={fetchJobsFn} />
               })
             )
               :
