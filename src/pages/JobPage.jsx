@@ -86,7 +86,7 @@ function JobPage() {
       <h2 className='text-2xl sm:text-3xl font-bold mt-10 mb-3'>About the Job</h2>
       <p className='sm:text-lg'>{jobData?.description} </p>
       <h4 className='text-2xl sm:text-3xl font-bold mt-7 mb-3'>Package and Variable pay</h4>
-      <p className='sm:text-lg flex items-center'> Salary :  <IndianRupee size={17} /> {jobData?.package} /- & variable pay based on performance</p>
+      <p className='sm:text-lg flex justify-center  '> <IndianRupee size={17} />  {jobData?.package.toLocaleString()} /- & variable pay based on performance.</p>
 
       {/* requirements */}
       <h2 className='text-2xl sm:text-3xl font-bold mt-10'>What are looking for</h2>

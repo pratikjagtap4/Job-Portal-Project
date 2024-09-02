@@ -63,7 +63,7 @@ function JobListing() {
 
   return (
     <div>
-      <h1 className='gradient-title font-extrabold text-5xl sm:text-7xl text-center pb-8'>Latest Jobs</h1>
+      <h1 className='gradient-title font-extrabold text-5xl sm:text-7xl text-center pb-8 mt-5'>Latest Jobs</h1>
 
       {/* job filter */}
       <form onSubmit={handleSearch} className='flex h-11 w-full gap-2 items-center mb-4'>
