@@ -77,7 +77,6 @@ export async function getSingleJob(token, { job_id }) {
     .eq("id", job_id)
     .single();
 
-  console.log(data);
   if (error) {
     console.log("Error fetching job", error);
     return null;

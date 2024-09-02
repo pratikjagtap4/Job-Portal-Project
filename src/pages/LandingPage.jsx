@@ -21,7 +21,7 @@ function LandingPage() {
         </p>
       </section>
 
-      <div className='flex justify-center gap-6'>
+      <div className='flex sm:flex-row flex-col justify-center gap-6 px-5 items-center'>
         <Link to="/jobs">
           <Button variant="blue" size="xl">Find Jobs</Button>
         </Link>
@@ -48,11 +48,11 @@ function LandingPage() {
       </Carousel>
 
       {/* banner */}
-      <img src="/banner.jpeg" alt="" className='w-full px-20' />
+      <img src="/banner.jpeg" alt="" className='w-full px-5 sm:px-20' />
 
 
 
-      <section className='grid grid-cols-1 md:grid-cols-2 gap-4 px-20'>
+      <section className='grid grid-cols-1 md:grid-cols-2 gap-4 px-5 sm:px-20'>
         {/* cards */}
         <Card>
           <CardHeader>
@@ -76,7 +76,7 @@ function LandingPage() {
 
       {/* accordian */}
 
-      <Accordion type="single" collapsible className='w-full px-20'>
+      <Accordion type="single" collapsible className='w-full px-5 sm:px-20'>
         {faqs.map((faq, index) => {
           return (
             <AccordionItem key={index} value={`item-${index + 1}`}>

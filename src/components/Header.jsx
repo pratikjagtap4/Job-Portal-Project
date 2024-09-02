@@ -24,12 +24,12 @@ function Header() {
 
     return (
         <>
-            <nav className='py-4 pl-10 flex justify-between items-center'>
+            <nav className='py-4 sm:pl-10 flex justify-between items-center'>
                 <Link to='/'>
                     <img src="logo.png" alt="" className='h-10' />
                 </Link>
 
-                <div className="flex gap-6">
+                <div className="flex gap-3 sm:gap-6">
 
                     <SignedOut>
                         <Button

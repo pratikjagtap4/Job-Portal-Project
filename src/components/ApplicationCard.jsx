@@ -40,32 +40,32 @@ function ApplicationCard({ application, isCandidate = false }) {
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <div className='flex justify-between items-center '>
-                        <div className='flex gap-3'>
+                    <div className='grid grid-cols-1 sm:grid-cols-4 '>
+                        <div className='flex gap-3 mt-5'>
                             <BriefcaseBusiness />
                             {application?.experience} years of exp.
                         </div>
-                        <div className='flex gap-2 items-center'>
+                        <div className='flex gap-2 items-center mt-5'>
                             <Calendar />
                             PassoutYear : {application?.passout_year}
                         </div>
 
-                        <div className='flex gap-3'>
+                        <div className='flex gap-3 mt-5'>
                             <School />
                             Education : {application?.education}.
                         </div>
-                        <div className='flex gap-2 items-center'>
+                        <div className='flex gap-2 items-center mt-5'>
                             <Boxes />
                             Skills : {application?.skills}
                         </div>
                     </div>
                 </CardContent>
                 <hr />
-                <CardFooter className='flex justify-between mt-2'>
+                <CardFooter className='grid grid-cols-1 sm:grid-cols-2 mt-2 items-center'>
                     <span> Applied on :  {new Date(application?.created_at).toLocaleDateString()}</span>
                     {!isCandidate && (
                         <Select onValueChange={handleStatusChange} defaultValue={application?.status}>
-                            <SelectTrigger className="w-52">
+                            <SelectTrigger className="w-52 mt-5">
                                 <SelectValue placeholder="Application Status" />
                             </SelectTrigger>
                             <SelectContent>

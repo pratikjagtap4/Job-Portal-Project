@@ -30,14 +30,14 @@ function JobPage() {
   }
 
   return (
-    <div className='mx-10'>
+    <div className='sm:mx-10'>
       <div className='flex flex-col-reverse gap-6 md:flex-row justify-between items-center '>
         <h1 className='gradient-title font-extrabold pb-3 text-4xl sm:text-6xl'>{jobData?.title}</h1>
-        <img src={jobData?.company?.logo_url} alt="" className='h-12' />
+        <img src={jobData?.company?.logo_url} alt="" className='h-12 mt-10 sm:mt-3' />
       </div>
 
       {/* job details */}
-      <div className='flex justify-between mt-5 items-center'>
+      <div className='mt-5 items-center grid grid-cols-2 sm:grid-cols-4'>
         <div className='flex gap-2'>
           {<MapPin />}
           {jobData?.location}
@@ -57,7 +57,7 @@ function JobPage() {
         {loadingHiringStatus && <BarLoader width={"100%"} color='#36d7b7' />}
         {
           jobData?.recruiter_id === user?.id ? (
-            <div>
+            <div className='mt-2 sm:mt-0'>
               <Select onValueChange={(value) => handleUpdateStatus(value)} className='px-10'>
                 <SelectTrigger className={` bg-transparent ${jobData?.isOpen ? ("text-green-400") : ("text-red-500")}`}>
                   <SelectValue placeholder={"hiring status : " + (jobData?.isOpen ? " open    " : " closed  ")} />
